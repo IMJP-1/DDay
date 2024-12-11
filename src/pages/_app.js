@@ -90,10 +90,10 @@ const App = () => {
 
     emailjs.send('service_6d02r2b', 'template_s55fo49', templateParams, '7C4oJvLOJpUxGax1d')
       .then(response => {
-        alert('Email sent successfully!');
+        //alert('Email sent successfully!');
       })
       .catch(err => {
-        alert('Error in sending email:', err);
+        //alert('Error in sending email:', err);
       });
   };
 
