@@ -4,27 +4,55 @@ import emailjs from 'emailjs-com';
 import '../styles/app.css';
 
 const App = () => {
+  const [password, setPassword] = useState("");
+  const [isAuthorized, setIsAuthorized] = useState(false);
+  const [enableEmail, setEnableEmail] = useState(false);
+  const backgroundImageUrl = '/assets/background.jpeg';
   const questions = [
-    "Do you like React?",
-    "Is JavaScript your favorite language?",
-    "Would you recommend this app?"
+    "Will you allow me to tease you for somewhat 60-70 years ?? (ya ya I dont believe in soul transfer thing)",
+    "Will you be able to fight with me for a life ?? (we are chaotic yess..)",
+    "Girlfriend is too cliche , Will you be my ladyy officialy ??",
+    "But yeah. Will you be my girlfriend ??",    
+    "We will hold each other and won't leave, ever. Yess ??",
+    "Let's jump(or should I say fly) into our personal world of love ??, serenalivia.."
   ];
+
+  const handlePasswordSubmit = (e) => {
+    e.preventDefault();
+    if (password === "1234567890") { // Replace "showUI" with your specific text
+      setIsAuthorized(true);
+      setEnableEmail(true);
+    }
+    else if(password === "123456789"){
+      setIsAuthorized(true);
+    }
+    else {
+      alert("Incorrect text, please try again!");
+    }
+  };
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [showGif, setShowGif] = useState(false);
   const [showYesImage, setShowYesImage] = useState(false);
   const [showNoImage, setShowNoImage] = useState(false);
   const [isNoDisabled, setIsNoDisabled] = useState(false);
+  const [slideOver, setSlideOver] = useState(false);
   const yesImages = [
     'https://t3.ftcdn.net/jpg/10/03/55/94/360_F_1003559489_5K1ZvC0XVoxFsYCwEhHDA0ybI5vyWIkk.jpg',
     'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/2c048870-5581-462a-938a-c01831df37f8/dhp3oge-da96b7b7-03f7-462b-a1bd-16b00433da0d.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzJjMDQ4ODcwLTU1ODEtNDYyYS05MzhhLWMwMTgzMWRmMzdmOFwvZGhwM29nZS1kYTk2YjdiNy0wM2Y3LTQ2MmItYTFiZC0xNmIwMDQzM2RhMGQuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.LUjaOozvUJOaGecufYGs23dUP4O09Gckmj9cYM7Twlo',
-    'https://nationaltoday.com/wp-content/uploads/2022/06/24-Hold-Hands-1200x834.jpg'
+    'https://nationaltoday.com/wp-content/uploads/2022/06/24-Hold-Hands-1200x834.jpg',
+    'https://i.ytimg.com/vi/6_5HEECajRQ/maxresdefault.jpg',
+    'https://i.ytimg.com/vi/J-ZKsCpTNPc/maxresdefault.jpg',
+    'https://img.freepik.com/premium-photo/world-love-heart_492154-5085.jpg'
   ];
 
   const noImages = [
     'https://st.depositphotos.com/38175496/60154/i/450/depositphotos_601541724-stock-illustration-emoji-emoticons-rendering-emoji-isolated.jpg',
     'https://i.pinimg.com/564x/35/46/40/3546401c88dbd432e07cff60690aa887.jpg',
-    'https://t4.ftcdn.net/jpg/06/84/10/73/360_F_684107393_nto0UyIoXSkZUNTYGq9yttaSaP7KQbkU.jpg'
+    'https://t4.ftcdn.net/jpg/06/84/10/73/360_F_684107393_nto0UyIoXSkZUNTYGq9yttaSaP7KQbkU.jpg',
+    'https://i.pinimg.com/236x/ac/db/1e/acdb1efcba17192c1113edb00e326ff5.jpg',
+    'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/4fada96d-4a02-4eb8-b0ea-e67e7e062706/d2f8d3v-e98d668f-b726-439e-b9cb-4beffe151ab6.jpg/v1/fill/w_600,h_518,q_75,strp/sad_naruto_by_teamtaka_d2f8d3v-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NTE4IiwicGF0aCI6IlwvZlwvNGZhZGE5NmQtNGEwMi00ZWI4LWIwZWEtZTY3ZTdlMDYyNzA2XC9kMmY4ZDN2LWU5OGQ2NjhmLWI3MjYtNDM5ZS1iOWNiLTRiZWZmZTE1MWFiNi5qcGciLCJ3aWR0aCI6Ijw9NjAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.rCHS7leaHrSjX7gn2hdGyhu6nKl8nGMOGaGAFbfQtg4',
+    'https://miro.medium.com/v2/resize:fit:960/0*UaDz9nhuXVwhTDCe.jpg'
   ];
 
   const handleYes = () => {
@@ -38,9 +66,15 @@ const App = () => {
       if (currentQuestion < questions.length - 1) {
         setCurrentQuestion(currentQuestion + 1);
       } else {
-        //sendEmail();
+        setSlideOver(true);
+        setShowGif(true);
+        if(enableEmail)
+        {
+          sendEmail();
+        }
+          
       }
-    }, 1000); // 1-second delay
+    }, 300); // 1-second delay
   };
 
   const handleNo = () => {
@@ -51,22 +85,10 @@ const App = () => {
   const sendEmail = () => {
     //e.preventDefault();
     const templateParams = {
-      to_name: 'User',
-      from_name:'Jaimin',
-      to_email:'jhp02016@gmail.com',
-      message_html: `
-      <div style="text-align: center; background-color: #fdf2f8; padding: 20px; font-family: Arial, sans-serif;">
-        <img 
-          src="https://drive.google.com/uc?export=view&id=1QSY59aaGDLJ43qA4YW8iyRiA7bl6Mi7h" 
-          alt="We Are Doing It" 
-          style="width: 100%; max-width: 600px; height: auto; margin: 20px 0; border: none;"
-        />
-      </div>
-    `,
     };
     
 
-    emailjs.send('service_6d02r2b', 'template_enauxgb', templateParams, '7C4oJvLOJpUxGax1d')
+    emailjs.send('service_6d02r2b', 'template_s55fo49', templateParams, '7C4oJvLOJpUxGax1d')
       .then(response => {
         alert('Email sent successfully!');
       })
@@ -77,41 +99,60 @@ const App = () => {
 
   return (
     <div className="app">
-      <div className="slider">
-        <h2>{questions[currentQuestion]}</h2>
-        <div className="buttons">
-          <button 
-            className="yes-button"
-            onClick={handleYes}
-            //onMouseEnter={() => setHoverText(`<img src="${yesImageURL}" alt="Yes Image" style="width: 150px;"/>`)}
-            //onMouseLeave={() => setHoverText(null)}
-          >
-            Yes
-          </button>
-          <button 
-            className="no-button"
-            onClick={handleNo}
-            disabled={isNoDisabled}
-            //onMouseEnter={() => setHoverText(`<img src="${noImageURL}" alt="No Image" style="width: 150px;"/>`)}
-            //onMouseLeave={() => setHoverText(null)}
-          >
-            No
-          </button>
-        </div>
-      </div>
-
-      
+      {
+        !isAuthorized ? (
+          <form onSubmit={handlePasswordSubmit}>
+            <h3>Enter the password to view the UI</h3>
+            <input
+              type="text"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter text here"
+            />
+            <button type="submit">Submit</button>
+          </form>
+        ) : slideOver ? (
+          <></>
+        ) : (
+          <div className="slider">
+            <p>{questions[currentQuestion]}</p>
+            <div className="buttons">
+              <button 
+                className="yes-button"
+                onClick={handleYes}
+                //onMouseEnter={() => setHoverText(`<img src="${yesImageURL}" alt="Yes Image" style="width: 150px;"/>`)}
+                //onMouseLeave={() => setHoverText(null)}
+              >
+                Yes
+              </button>
+              <button 
+                className="no-button"
+                onClick={handleNo}
+                disabled={isNoDisabled}
+                //onMouseEnter={() => setHoverText(`<img src="${noImageURL}" alt="No Image" style="width: 150px;"/>`)}
+                //onMouseLeave={() => setHoverText(null)}
+              >
+                No
+              </button>
+            </div>
+          </div>
+        )
+      }      
       {showYesImage && (
         <div className="hover-image">
-          <img src={yesImages[currentQuestion]} alt="Yes Image" style={{ width: '150px' }} />
+          <img src={yesImages[currentQuestion]} alt="Yes Image" style={{ maxWidth: '100%', height : 'auto' }} />
         </div>
       )}
       {showNoImage && (
         <div className="hover-image">
-          <img src={noImages[currentQuestion]} alt="No Image" style={{ width: '150px' }} />
+          <img src={noImages[currentQuestion]} alt="No Image" style={{ maxWidth: '100%', height : 'auto' }} />
         </div>
       )}
-      {showGif && <div className="gif">Here is your GIF!</div>}
+      {showGif && (
+        <div className="hover-image">
+          <img src="https://i.pinimg.com/originals/0e/bd/86/0ebd8658f7610a409cdce22341cb2125.gif" alt="No Image" style={{ maxWidth: '100%', height : 'auto' }} />
+        </div>
+      )}
     </div>
   );
 };
