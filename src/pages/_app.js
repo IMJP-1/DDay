@@ -74,7 +74,7 @@ const App = () => {
         }
           
       }
-    }, 300); // 1-second delay
+    }, 3000); // 1-second delay
   };
 
   const handleNo = () => {
