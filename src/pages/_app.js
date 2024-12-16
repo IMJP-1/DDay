@@ -99,61 +99,66 @@ const App = () => {
 
   return (
     <div className="app">
-      {
-        !isAuthorized ? (
-          <form onSubmit={handlePasswordSubmit}>
-            <h3>Enter the password to view the UI</h3>
-            <input
-              type="text"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter text here"
-            />
-            <button type="submit">Submit</button>
-          </form>
-        ) : slideOver ? (
-          <></>
-        ) : (
-          <div className="slider">
-            <p>{questions[currentQuestion]}</p>
-            <div className="buttons">
-              <button 
-                className="yes-button"
-                onClick={handleYes}
-                //onMouseEnter={() => setHoverText(`<img src="${yesImageURL}" alt="Yes Image" style="width: 150px;"/>`)}
-                //onMouseLeave={() => setHoverText(null)}
-              >
-                Yes
-              </button>
-              <button 
-                className="no-button"
-                onClick={handleNo}
-                disabled={isNoDisabled}
-                //onMouseEnter={() => setHoverText(`<img src="${noImageURL}" alt="No Image" style="width: 150px;"/>`)}
-                //onMouseLeave={() => setHoverText(null)}
-              >
-                No
-              </button>
-            </div>
-          </div>
-        )
-      }      
-      {showYesImage && (
-        <div className="hover-image">
-          <img src={yesImages[currentQuestion]} alt="Yes Image" style={{ maxWidth: '100%', height : 'auto' }} />
-        </div>
-      )}
-      {showNoImage && (
-        <div className="hover-image">
-          <img src={noImages[currentQuestion]} alt="No Image" style={{ maxWidth: '100%', height : 'auto' }} />
-        </div>
-      )}
-      {showGif && (
-        <div className="hover-image">
-          <img src="https://i.pinimg.com/originals/0e/bd/86/0ebd8658f7610a409cdce22341cb2125.gif" alt="No Image" style={{ maxWidth: '100%', height : 'auto' }} />
-        </div>
-      )}
+      <img src="https://media.istockphoto.com/id/473912772/photo/tulips-on-a-sunny-field-in-spring.jpg?s=612x612&w=0&k=20&c=iJUeTMJEQbvLQmXI4h0P6jcxcoEUYQQcmDpMvZgMnHk=" alt="ruk to sahi.." style={{ maxWidth: '100%', height : 'auto' }}/>
+      <img src="https://ofhsoupkitchen.org/wp-content/uploads/2022/02/spread-love-quotes-2.jpg" alt="patience..." style={{ maxWidth: '100%', height : 'auto', marginTop : '20px' }}/>
+      
     </div>
+    // <div className="app">
+    //   {
+    //     !isAuthorized ? (
+    //       <form onSubmit={handlePasswordSubmit}>
+    //         <h3>Enter the password to view the UI</h3>
+    //         <input
+    //           type="text"
+    //           value={password}
+    //           onChange={(e) => setPassword(e.target.value)}
+    //           placeholder="Enter text here"
+    //         />
+    //         <button type="submit">Submit</button>
+    //       </form>
+    //     ) : slideOver ? (
+    //       <></>
+    //     ) : (
+    //       <div className="slider">
+    //         <p>{questions[currentQuestion]}</p>
+    //         <div className="buttons">
+    //           <button 
+    //             className="yes-button"
+    //             onClick={handleYes}
+    //             //onMouseEnter={() => setHoverText(`<img src="${yesImageURL}" alt="Yes Image" style="width: 150px;"/>`)}
+    //             //onMouseLeave={() => setHoverText(null)}
+    //           >
+    //             Yes
+    //           </button>
+    //           <button 
+    //             className="no-button"
+    //             onClick={handleNo}
+    //             disabled={isNoDisabled}
+    //             //onMouseEnter={() => setHoverText(`<img src="${noImageURL}" alt="No Image" style="width: 150px;"/>`)}
+    //             //onMouseLeave={() => setHoverText(null)}
+    //           >
+    //             No
+    //           </button>
+    //         </div>
+    //       </div>
+    //     )
+    //   }      
+    //   {showYesImage && (
+    //     <div className="hover-image">
+    //       <img src={yesImages[currentQuestion]} alt="Yes Image" style={{ maxWidth: '100%', height : 'auto' }} />
+    //     </div>
+    //   )}
+    //   {showNoImage && (
+    //     <div className="hover-image">
+    //       <img src={noImages[currentQuestion]} alt="No Image" style={{ maxWidth: '100%', height : 'auto' }} />
+    //     </div>
+    //   )}
+    //   {showGif && (
+    //     <div className="hover-image">
+    //       <img src="https://i.pinimg.com/originals/0e/bd/86/0ebd8658f7610a409cdce22341cb2125.gif" alt="No Image" style={{ maxWidth: '100%', height : 'auto' }} />
+    //     </div>
+    //   )}
+    // </div>
   );
 };
 
